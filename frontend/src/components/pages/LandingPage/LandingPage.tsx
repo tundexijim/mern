@@ -30,7 +30,6 @@ const LandingPage = () => {
             </div>
           </div>
         </Row>
-      
        </Container>
     </div>
   )

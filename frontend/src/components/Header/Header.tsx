@@ -1,12 +1,16 @@
 import React from 'react'
 import { Container, Form, Nav, Navbar, NavDropdown} from 'react-bootstrap';
-
+import {NavLink} from 'react-router-dom'
 
 const Header = () => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar  collapseOnSelect expand="lg" bg="primary" variant="dark">
     <Container>
-      <Navbar.Brand href="#">Notes</Navbar.Brand>
+      <Navbar.Brand>
+        <NavLink to='/'>
+            Notes
+        </NavLink>
+        </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav className='m-auto'>
@@ -23,7 +27,7 @@ const Header = () => {
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
-          <Nav.Link href="#action1">My Notes</Nav.Link>
+          <Nav.Link> <NavLink to='/mynotes'>My Notes</NavLink></Nav.Link>
           <NavDropdown title="Profile" id="navbarScrollingDropdown">
             <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
             <NavDropdown.Divider />
