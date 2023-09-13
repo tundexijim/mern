@@ -1,25 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 import MainScreen from '../../MainScreen'
 import { NavLink } from 'react-router-dom'
 import { Accordion, Badge, Button, Card } from 'react-bootstrap'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-import {notes} from '../../../data/data'
-const CustomToggle = ({ children, eventKey }: any) => {
-  const decoratedOnClick = useAccordionButton(eventKey, () =>
+import axios from 'axios';
+import {Note} from '../../../../src/types/type'
+const CustomToggle = ({ children, eventKey }: {children:React.ReactNode, eventKey:string}) => {
+const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log('totally custom!'),
   );
 
   return (
     <button
       type="button"
-      
       onClick={decoratedOnClick}
-    >
+      >
       {children}
     </button>
   );
 }
 const MyNotes = () => {
+  const [notes, setNotes] = useState<Note[]>([])
+ const fetchdata = async () =>{
+   const {data}: {data:Note[]} = await axios.get('/api/notes')
+  setNotes(data);
+}
+  useEffect(()=>{
+    fetchdata()
+  },[])
   const deleteHandler = (id: String) => {
     if (window.confirm("Are you sure?")) {
     }
@@ -53,11 +61,11 @@ const MyNotes = () => {
                </CustomToggle>
               </span>
               <div>
-                <Button href={`/note/${note.id}`}>Edit</Button>
+                <Button href={`/note/${note._id}`}>Edit</Button>
                 <Button
                   variant="danger"
                   className="mx-2"
-                  onClick={() => deleteHandler(note.id)}
+                  onClick={() => deleteHandler(note._id)}
                 >
                   Delete
                 </Button>
@@ -65,7 +73,7 @@ const MyNotes = () => {
             </Card.Header>
             <Accordion.Collapse eventKey="0">
             <Card.Body>
-            <h4>
+                    <h4>
                       <Badge bg='success'>
                         Category - {note.category}
                       </Badge>

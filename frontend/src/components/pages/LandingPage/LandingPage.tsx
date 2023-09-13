@@ -18,7 +18,7 @@ const LandingPage = () => {
                   Login
                 </Button>
               </NavLink>
-              <NavLink to="/register">
+              <NavLink to="/signup">
                 <Button
                   variant="outline-primary"
                   size="lg"
