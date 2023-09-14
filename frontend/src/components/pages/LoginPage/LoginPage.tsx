@@ -4,10 +4,13 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import './LoginPage.css'
 import axios from 'axios'
+import {user} from '../../../types/type'
+import Loading from '../../Loading'
+import Errormsg from '../../Errormsg'
 const LoginPage = () => {
 const [email, setEmail] = useState<string>("");
 const [password, setPassword] = useState<string>("");
-const [error, setError] = useState<Boolean>(false);
+const [error, setError] = useState(false);
 const [loading, setLoading] = useState<Boolean>(false);
 
 const submitHandler = async (e: FormEvent<HTMLFormElement>) =>{
@@ -19,7 +22,7 @@ const submitHandler = async (e: FormEvent<HTMLFormElement>) =>{
             },
         };
         setLoading(true)
-        const {data}: any  = await axios.post(
+        const {data}: {data: user[]}  = await axios.post(
             "/api/users/login",
             {
                 email,
@@ -32,12 +35,14 @@ const submitHandler = async (e: FormEvent<HTMLFormElement>) =>{
         setLoading(false)
     } catch (error: any) {
         setError(error.response.data.message)
-        console.log(error.response.data.message)
+        setLoading(false)
     }
 }
   return (
     <MainScreen title="LOGIN">
     <div className="loginContainer">
+        {error && <Errormsg variant = "danger">{error}</Errormsg>}
+        {loading && <Loading/>}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -59,13 +64,13 @@ const submitHandler = async (e: FormEvent<HTMLFormElement>) =>{
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{marginTop: "10px"}}>
           Submit
         </Button>
       </Form>
       <Row className="py-3">
         <Col>
-          New Customer ? <NavLink to="/register">Register Here</NavLink>
+          New Customer ? <NavLink to="/signup">Register Here</NavLink>
         </Col>
       </Row>
     </div>
