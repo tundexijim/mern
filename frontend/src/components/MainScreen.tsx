@@ -1,7 +1,13 @@
-import React, { ReactNode } from 'react'
-import {Container, Row} from 'react-bootstrap'
-import "./MainScreen.css"
-const MainScreen = ({title, children}: {title:String, children: ReactNode}) => {
+import React, { ReactNode } from "react";
+import { Container, Row } from "react-bootstrap";
+import "./MainScreen.css";
+const MainScreen = ({
+  title,
+  children,
+}: {
+  title: String;
+  children: ReactNode;
+}) => {
   return (
     <div className="mainback">
       <Container>
@@ -18,7 +24,7 @@ const MainScreen = ({title, children}: {title:String, children: ReactNode}) => {
         </Row>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default MainScreen
+export default MainScreen;
