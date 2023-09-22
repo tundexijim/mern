@@ -1,13 +1,18 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import MainScreen from "../../MainScreen";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./SignupPage.css";
 import Errormsg from "../../Errormsg";
-import { user } from "../../../types/type";
-import axios from "axios";
 import Loading from "../../Loading";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { Signup } from "../../../actions/userAction";
+
 const SignupPage = () => {
+  const dispatch = useAppDispatch();
+  const userSignup = useAppSelector((state) => state.userSignup);
+  const navigate = useNavigate();
+  const { loading, error, userInfo } = userSignup;
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [pic, setPic] = useState<string>(
@@ -17,39 +22,21 @@ const SignupPage = () => {
   const [confirmpassword, setConfirmPassword] = useState<string>("");
   const [message, setMessage] = useState<string | null>("");
   const [picMessage, setPicMessage] = useState<string | null>(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(false);
+  // const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/mynotes");
+    }
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmpassword) {
       setMessage("Passwords do not match");
-      console.log(email);
     } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        setLoading(true);
-        const { data }: { data: user[] } = await axios.post(
-          "/api/users",
-          {
-            name,
-            pic,
-            email,
-            password,
-          },
-          config
-        );
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error: any) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+      dispatch(Signup(name, email, password, pic));
     }
   };
 

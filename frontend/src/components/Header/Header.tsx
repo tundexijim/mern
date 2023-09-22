@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { RootState } from "../../store";
 import { logout } from "../../actions/userAction";
 import { useAppDispatch } from "../../hook";
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const userLogin = useSelector((state: RootState) => state.userLogin);
-  // const { userInfo }: any = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());

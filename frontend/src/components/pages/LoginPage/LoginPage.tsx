@@ -17,34 +17,10 @@ const LoginPage = () => {
   const { loading, error, userInfo }: any = userLogin;
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // const [error, setError] = useState(false);
-  // const [loading, setLoading] = useState<Boolean>(false);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login(email, password));
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   };
-    //   setLoading(true);
-    //   const { data }: { data: user[] } = await axios.post(
-    //     "/api/users/login",
-    //     {
-    //       email,
-    //       password,
-    //     },
-    //     config
-    //   );
-    //   console.log(data);
-    //   localStorage.setItem("userInfo", JSON.stringify(data));
-    //   setLoading(false);
-    // } catch (error: any) {
-    //   setError(error.response.data.message);
-    //   setLoading(false);
-    // }
   };
   useEffect(() => {
     if (userInfo) {

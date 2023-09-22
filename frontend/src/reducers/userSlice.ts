@@ -14,7 +14,7 @@ const initialState = {
   error: null,
 };
 
-  export const userLoginSlice: any = createSlice({
+  export const userLoginSlice = createSlice({
     name: 'login',
     initialState,
     reducers:{
@@ -37,3 +37,22 @@ const initialState = {
 
   export const {loginRequest, loginSuccess, loginError, logOut} = userLoginSlice.actions;
   export default userLoginSlice.reducer;
+
+   const RegisterSlice = createSlice({
+      name: "signup",
+      initialState,
+      reducers:{
+        signupRequest: (state) =>{ state.loading = true },
+        signupSuccess: (state, action) =>{
+          state.loading = false;
+          state.userInfo = action.payload;
+        },
+        signupFail: (state, action) =>{
+          state.loading = false;
+          state.error = action.payload
+        }
+      }
+  });
+
+  export const {signupRequest, signupSuccess, signupFail} = RegisterSlice.actions;
+  export const RegisterReducer = RegisterSlice.reducer;
