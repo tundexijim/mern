@@ -22,8 +22,6 @@ const SignupPage = () => {
   const [confirmpassword, setConfirmPassword] = useState<string>("");
   const [message, setMessage] = useState<string | null>("");
   const [picMessage, setPicMessage] = useState<string | null>(null);
-  // const [error, setError] = useState(false);
-  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (userInfo) {
