@@ -1,6 +1,7 @@
-import { configureStore, combineReducers, applyMiddleware} from '@reduxjs/toolkit'
+import { configureStore, applyMiddleware} from '@reduxjs/toolkit'
 import userSlice from './reducers/userSlice';
 import { RegisterReducer } from './reducers/userSlice';
+import { NotesList } from './reducers/noteSlice';
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo")??"null")
@@ -20,7 +21,8 @@ const store = configureStore({
     reducer:{
       userLogin: userSlice,
       userSignup: RegisterReducer,
-    },
+      NoteLists: NotesList,  
+     },
     preloadedState,
 })
 

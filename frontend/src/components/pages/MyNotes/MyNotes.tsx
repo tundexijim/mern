@@ -3,8 +3,11 @@ import MainScreen from "../../MainScreen";
 import { NavLink } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import axios from "axios";
-import { Note } from "../../../../src/types/type";
+import { useAppDispatch, useAppSelector } from "../../../hook";
+import { RootState } from "../../../store";
+import { listNotes } from "../../../actions/notesAction";
+import Loading from "../../Loading";
+import Errormsg from "../../Errormsg";
 const CustomToggle = ({
   children,
   eventKey,
@@ -23,27 +26,30 @@ const CustomToggle = ({
   );
 };
 const MyNotes = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const fetchdata = async () => {
-    const { data }: { data: Note[] } = await axios.get("/api/notes");
-    setNotes(data);
-  };
-  useEffect(() => {
-    fetchdata();
-  }, []);
+  const dispatch = useAppDispatch();
+  const noteList = useAppSelector((state: RootState) => state.NoteLists);
+  const userLogin = useAppSelector((state: RootState) => state.userLogin);
+
+  const { userInfo } = userLogin;
+  const { loading, notes, error } = noteList;
   const deleteHandler = (id: String) => {
     if (window.confirm("Are you sure?")) {
     }
   };
+  useEffect(() => {
+    dispatch(listNotes());
+  }, [dispatch]);
   return (
     <div>
-      <MainScreen title="This is my note">
+      <MainScreen title={`Welcome Back ${userInfo.name}`}>
         <NavLink to="/createnote">
           <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
             Create new Note
           </Button>
         </NavLink>
-        {notes.map((note) => (
+        {error && <Errormsg variant="danger">{error}</Errormsg>}
+        {loading && <Loading />}
+        {notes.map((note: any) => (
           <Accordion>
             <Card style={{ margin: 10 }}>
               <Card.Header style={{ display: "flex" }}>
@@ -79,7 +85,10 @@ const MyNotes = () => {
                   <blockquote className="blockquote mb-0">
                     <p>{note.content}</p>
                     <footer className="blockquote-footer">
-                      Created On -date
+                      Created on{" "}
+                      <cite title="Source Title">
+                        {note.createdAt.substring(0, 10)}
+                      </cite>
                     </footer>
                   </blockquote>
                 </Card.Body>
