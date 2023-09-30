@@ -3,6 +3,8 @@ export interface Note {
     title: string;
     content: string;
     category: string;
+    createdAt: string;
+    updatedAt: string;
   }
 
   export interface user {

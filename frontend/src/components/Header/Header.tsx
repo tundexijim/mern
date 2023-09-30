@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userAction";
 import { useAppDispatch } from "../../hook";
 
-const Header = () => {
+const Header = ({ setSearch }: any) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ const Header = () => {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e: any) => setSearch(e.target.value)}
               />
             </Form>
           </Nav>
