@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userAction";
-import { useAppDispatch } from "../../hook";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { RootState } from "../../store";
 
 const Header = ({ setSearch }: any) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const userLogin = useAppSelector((state: RootState) => state.userLogin);
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
+    window.location.reload();
   };
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
@@ -31,19 +33,31 @@ const Header = ({ setSearch }: any) => {
               />
             </Form>
           </Nav>
-          <Nav style={{ maxHeight: "100px" }} navbarScroll>
-            <Nav.Link>
+          {userLogin.userInfo ? (
+            <Nav style={{ maxHeight: "100px" }} navbarScroll>
+              <Nav.Link>
+                <NavLink to="/mynotes">My Notes</NavLink>
+              </Nav.Link>
+              <NavDropdown
+                title={userLogin.userInfo?.name}
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Nav>
               {" "}
-              <NavLink to="/mynotes">My Notes</NavLink>
-            </Nav.Link>
-            <NavDropdown title="Profile" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logoutHandler}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+              <Nav.Link>
+                <NavLink to="/login">Login</NavLink>
+              </Nav.Link>{" "}
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

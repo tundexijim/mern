@@ -9,6 +9,7 @@ import SignupPage from "./components/pages/SignupPage/SignupPage";
 import LoginPage from "./components/pages/LoginPage/LoginPage";
 import CreateNote from "./components/pages/CreateNote/CreateNote";
 import SingleNote from "./components/pages/SingleNote/SingleNote";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 
 function App() {
   const [search, setSearch] = useState<string>("");
@@ -24,6 +25,7 @@ function App() {
           <Route path="/createnote" element={<CreateNote />} />
           <Route path="/note/:id" element={<SingleNote />} />
           <Route path="/mynotes" element={<MyNotes search={search} />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />
       </div>

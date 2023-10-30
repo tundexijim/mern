@@ -20,8 +20,6 @@ const CreateNote = () => {
   const noteCreate = useAppSelector((state) => state.NoteCreate);
   const { loading, error } = noteCreate;
 
-  //   console.log(note);
-
   const resetHandler = () => {
     setTitle("");
     setCategory("");
@@ -37,7 +35,7 @@ const CreateNote = () => {
     navigate("/mynotes");
   };
 
-  //   useEffect(() => {}, []);
+  useEffect(() => {}, []);
   return (
     <MainScreen title="Create a Note">
       <Card>

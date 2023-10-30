@@ -90,8 +90,9 @@ const MyNotes = ({ search }: any) => {
                         fontSize: 18,
                       }}
                     >
-                      <CustomToggle eventKey="0">{note.title}</CustomToggle>
+                      <CustomToggle eventKey="0"> {note.title}</CustomToggle>
                     </span>
+
                     <div>
                       <Button href={`/note/${note._id}`}>Edit</Button>
                       <Button
@@ -103,6 +104,7 @@ const MyNotes = ({ search }: any) => {
                       </Button>
                     </div>
                   </Card.Header>
+
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <h4>

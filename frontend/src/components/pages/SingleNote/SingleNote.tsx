@@ -26,8 +26,6 @@ const SingleNote = () => {
   const noteUpdate = useAppSelector((state) => state.UpdateNote);
   const { loading, error } = noteUpdate;
 
-  console.log(id);
-
   const noteDelete = useAppSelector((state) => state.DeleteNote);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
 

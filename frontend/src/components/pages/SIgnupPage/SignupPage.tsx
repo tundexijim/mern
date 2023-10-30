@@ -43,7 +43,6 @@ const SignupPage = () => {
     if (!pics) {
       return setPicMessage("Please Select an Image");
     }
-    setPicMessage(null);
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
