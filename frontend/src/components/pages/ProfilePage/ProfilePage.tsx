@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [picMessage, setPicMessage] = useState<string | null>();
-  const [message, setMessage] = useState<string | null>("");
+  const [message, setMessage] = useState<string>("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userUpdate = useAppSelector((state) => state.userUpdate);
@@ -62,6 +62,8 @@ const ProfilePage = () => {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      setPicMessage("Please Select an Image");
     }
   };
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -81,7 +83,7 @@ const ProfilePage = () => {
             <Form onSubmit={submitHandler}>
               {loading && <Loading />}
               {success && (
-                <Errormsg variant="success">Updated Successfully</Errormsg>
+                <Errormsg variant="success">Update Successfully</Errormsg>
               )}
               {error && <Errormsg variant="danger">{error}</Errormsg>}
               {message && <Errormsg variant="danger">{message}</Errormsg>}

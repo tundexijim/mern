@@ -9,7 +9,7 @@ const Errormsg = ({
   variant: string;
 }) => {
   return (
-    <Alert variant={variant} style={{ fontSize: 20 }}>
+    <Alert variant={variant} style={{ fontSize: 20, marginTop: 10 }}>
       <strong>{children}</strong>
     </Alert>
   );

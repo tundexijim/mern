@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MainScreen from "../../MainScreen";
 import { NavLink } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
@@ -23,7 +23,18 @@ const CustomToggle = ({
   );
 
   return (
-    <button type="button" onClick={decoratedOnClick}>
+    <button
+      type="button"
+      onClick={decoratedOnClick}
+      style={{
+        color: "black",
+        textDecoration: "none",
+        display: "flex",
+        flex: 1,
+        cursor: "pointer",
+        fontSize: 18,
+      }}
+    >
       {children}
     </button>
   );
@@ -52,7 +63,6 @@ const MyNotes = ({ search }: any) => {
   };
   useEffect(() => {
     dispatch(listNotes());
-
     if (!userInfo) {
       navigate("/");
     }
@@ -79,19 +89,9 @@ const MyNotes = ({ search }: any) => {
               <Accordion key={note._id}>
                 <Card style={{ margin: 10 }}>
                   <Card.Header style={{ display: "flex" }}>
-                    <span
-                      // onClick={() => ModelShow(note)}
-                      style={{
-                        color: "black",
-                        textDecoration: "none",
-                        flex: 1,
-                        cursor: "pointer",
-                        alignSelf: "center",
-                        fontSize: 18,
-                      }}
-                    >
-                      <CustomToggle eventKey="0"> {note.title}</CustomToggle>
-                    </span>
+                    <CustomToggle eventKey="0">
+                      <span>{note.title}</span>
+                    </CustomToggle>
 
                     <div>
                       <Button href={`/note/${note._id}`}>Edit</Button>
